@@ -1,3 +1,3 @@
-module github.com/Dr-H-PhD/strands-agents-sdk-go
+module github.com/achrafsoltani/strands-agents-sdk-go
 
 go 1.23

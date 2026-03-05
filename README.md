@@ -23,7 +23,7 @@ Rather than encoding decision trees or state machines, you define **tools** and 
 ## Quick Start
 
 ```bash
-go get github.com/Dr-H-PhD/strands-agents-sdk-go
+go get github.com/achrafsoltani/strands-agents-sdk-go
 ```
 
 ```go
@@ -35,8 +35,8 @@ import (
     "log"
     "strings"
 
-    strands "github.com/Dr-H-PhD/strands-agents-sdk-go"
-    "github.com/Dr-H-PhD/strands-agents-sdk-go/provider/anthropic"
+    strands "github.com/achrafsoltani/strands-agents-sdk-go"
+    "github.com/achrafsoltani/strands-agents-sdk-go/provider/anthropic"
 )
 
 func main() {

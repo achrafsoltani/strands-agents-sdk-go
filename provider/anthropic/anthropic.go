@@ -14,7 +14,7 @@ import (
 	"strings"
 	"time"
 
-	strands "github.com/Dr-H-PhD/strands-agents-sdk-go"
+	strands "github.com/achrafsoltani/strands-agents-sdk-go"
 )
 
 // Provider implements strands.Model for the Anthropic Messages API.

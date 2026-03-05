@@ -12,8 +12,8 @@ import (
 	"math"
 	"strings"
 
-	strands "github.com/Dr-H-PhD/strands-agents-sdk-go"
-	"github.com/Dr-H-PhD/strands-agents-sdk-go/provider/anthropic"
+	strands "github.com/achrafsoltani/strands-agents-sdk-go"
+	"github.com/achrafsoltani/strands-agents-sdk-go/provider/anthropic"
 )
 
 func main() {
