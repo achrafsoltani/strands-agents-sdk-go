@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 750" font-family="'Segoe UI', Arial, sans-serif">
+  <defs>
+    <linearGradient id="hdr5" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#232F3E"/>
+      <stop offset="100%" stop-color="#37475A"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1000" height="750" rx="12" fill="#F8F9FA"/>
+
+  <!-- Title -->
+  <rect width="1000" height="52" rx="12" fill="url(#hdr5)"/>
+  <rect y="40" width="1000" height="12" fill="url(#hdr5)"/>
+  <text x="500" y="34" text-anchor="middle" fill="white" font-size="18" font-weight="bold">Hook System &amp; Agent Lifecycle Events</text>
+
+  <!-- Timeline column -->
+  <line x1="200" y1="80" x2="200" y2="700" stroke="#C925D1" stroke-width="3"/>
+  <text x="200" y="75" text-anchor="middle" fill="#7B1FA2" font-size="13" font-weight="bold">Lifecycle Timeline</text>
+
+  <!-- Event 1: AgentInitializedEvent -->
+  <circle cx="200" cy="110" r="8" fill="#C925D1"/>
+  <rect x="240" y="90" width="340" height="44" rx="8" fill="#F3E5F5" stroke="#C925D1" stroke-width="1.5"/>
+  <text x="260" y="112" fill="#7B1FA2" font-size="13" font-weight="bold">AgentInitializedEvent</text>
+  <text x="260" y="128" fill="#777" font-size="10">Agent fully constructed, plugins initialised</text>
+
+  <rect x="620" y="90" width="340" height="44" rx="8" fill="white" stroke="#9E9E9E" stroke-width="1"/>
+  <text x="640" y="108" fill="#555" font-size="11">Hooks: SessionManager.initialize()</text>
+  <text x="640" y="124" fill="#555" font-size="11">Plugins register their hooks here</text>
+
+  <!-- Event 2: BeforeInvocationEvent -->
+  <circle cx="200" cy="170" r="8" fill="#C925D1"/>
+  <rect x="240" y="150" width="340" height="44" rx="8" fill="#F3E5F5" stroke="#C925D1" stroke-width="1.5"/>
+  <text x="260" y="172" fill="#7B1FA2" font-size="13" font-weight="bold">BeforeInvocationEvent</text>
+  <text x="260" y="188" fill="#777" font-size="10">Before processing user prompt</text>
+
+  <rect x="620" y="150" width="340" height="44" rx="8" fill="white" stroke="#9E9E9E" stroke-width="1"/>
+  <text x="640" y="168" fill="#555" font-size="11">Can modify input messages (redaction)</text>
+  <text x="640" y="184" fill="#555" font-size="11">Request-level setup and validation</text>
+
+  <!-- Event 3: BeforeModelCallEvent -->
+  <circle cx="200" cy="240" r="8" fill="#00A4EF"/>
+  <rect x="240" y="220" width="340" height="44" rx="8" fill="#E3F2FD" stroke="#00A4EF" stroke-width="1.5"/>
+  <text x="260" y="242" fill="#1565C0" font-size="13" font-weight="bold">BeforeModelCallEvent</text>
+  <text x="260" y="258" fill="#777" font-size="10">Before calling Model.stream()</text>
+
+  <rect x="620" y="220" width="340" height="44" rx="8" fill="white" stroke="#9E9E9E" stroke-width="1"/>
+  <text x="640" y="238" fill="#555" font-size="11">Inspect or modify messages/config</text>
+  <text x="640" y="254" fill="#555" font-size="11">Pre-model logging</text>
+
+  <!-- Model execution indicator -->
+  <rect x="160" y="275" width="80" height="24" rx="4" fill="#E3F2FD" stroke="#00A4EF" stroke-width="1"/>
+  <text x="200" y="291" text-anchor="middle" fill="#1565C0" font-size="9" font-weight="600">MODEL</text>
+
+  <!-- Event 4: AfterModelCallEvent -->
+  <circle cx="200" cy="320" r="8" fill="#00A4EF"/>
+  <rect x="240" y="300" width="340" height="52" rx="8" fill="#E3F2FD" stroke="#00A4EF" stroke-width="1.5"/>
+  <text x="260" y="322" fill="#1565C0" font-size="13" font-weight="bold">AfterModelCallEvent</text>
+  <text x="260" y="338" fill="#777" font-size="10">After model response (or exception)</text>
+  <text x="260" y="350" fill="#d32f2f" font-size="10" font-weight="600">retry = True → re-invoke model</text>
+
+  <rect x="620" y="300" width="340" height="52" rx="8" fill="white" stroke="#9E9E9E" stroke-width="1"/>
+  <text x="640" y="318" fill="#555" font-size="11">ModelRetryStrategy uses this for throttling</text>
+  <text x="640" y="334" fill="#555" font-size="11">Reverse callback order (LIFO)</text>
+  <text x="640" y="350" fill="#555" font-size="11">stop_response or exception available</text>
+
+  <!-- Event 5: MessageAddedEvent -->
+  <circle cx="200" cy="385" r="8" fill="#3F8624"/>
+  <rect x="240" y="365" width="340" height="44" rx="8" fill="#E8F5E9" stroke="#3F8624" stroke-width="1.5"/>
+  <text x="260" y="387" fill="#2E7D32" font-size="13" font-weight="bold">MessageAddedEvent</text>
+  <text x="260" y="403" fill="#777" font-size="10">Every message appended to conversation</text>
+
+  <rect x="620" y="365" width="340" height="44" rx="8" fill="white" stroke="#9E9E9E" stroke-width="1"/>
+  <text x="640" y="383" fill="#555" font-size="11">SessionManager.append_message()</text>
+  <text x="640" y="399" fill="#555" font-size="11">Logging, monitoring, custom processing</text>
+
+  <!-- Event 6: BeforeToolCallEvent -->
+  <circle cx="200" cy="445" r="8" fill="#FF9900"/>
+  <rect x="240" y="425" width="340" height="52" rx="8" fill="#FFF3E0" stroke="#FF9900" stroke-width="1.5"/>
+  <text x="260" y="447" fill="#E65100" font-size="13" font-weight="bold">BeforeToolCallEvent</text>
+  <text x="260" y="463" fill="#777" font-size="10">Before executing a tool</text>
+  <text x="260" y="475" fill="#d32f2f" font-size="10" font-weight="600">cancel_tool / interrupt → skip execution</text>
+
+  <rect x="620" y="425" width="340" height="52" rx="8" fill="white" stroke="#9E9E9E" stroke-width="1"/>
+  <text x="640" y="443" fill="#555" font-size="11">Modify selected_tool or tool_use params</text>
+  <text x="640" y="459" fill="#555" font-size="11">Cancel dangerous operations</text>
+  <text x="640" y="475" fill="#555" font-size="11">Human-in-the-loop interrupts</text>
+
+  <!-- Tool execution indicator -->
+  <rect x="160" y="488" width="80" height="24" rx="4" fill="#FFF3E0" stroke="#FF9900" stroke-width="1"/>
+  <text x="200" y="504" text-anchor="middle" fill="#E65100" font-size="9" font-weight="600">TOOL</text>
+
+  <!-- Event 7: AfterToolCallEvent -->
+  <circle cx="200" cy="535" r="8" fill="#FF9900"/>
+  <rect x="240" y="515" width="340" height="52" rx="8" fill="#FFF3E0" stroke="#FF9900" stroke-width="1.5"/>
+  <text x="260" y="537" fill="#E65100" font-size="13" font-weight="bold">AfterToolCallEvent</text>
+  <text x="260" y="553" fill="#777" font-size="10">After tool execution (success or error)</text>
+  <text x="260" y="565" fill="#d32f2f" font-size="10" font-weight="600">retry = True → re-execute tool</text>
+
+  <rect x="620" y="515" width="340" height="52" rx="8" fill="white" stroke="#9E9E9E" stroke-width="1"/>
+  <text x="640" y="533" fill="#555" font-size="11">Modify result before it joins conversation</text>
+  <text x="640" y="549" fill="#555" font-size="11">Reverse callback order (LIFO)</text>
+  <text x="640" y="565" fill="#555" font-size="11">Error handling and recovery</text>
+
+  <!-- Loop annotation -->
+  <rect x="60" y="290" width="100" height="270" rx="6" fill="none" stroke="#555" stroke-width="1" stroke-dasharray="5,3"/>
+  <text x="110" y="430" text-anchor="middle" fill="#555" font-size="10" font-weight="600" transform="rotate(-90, 110, 430)">Repeats per event loop cycle</text>
+
+  <!-- Event 8: AfterInvocationEvent -->
+  <circle cx="200" cy="610" r="8" fill="#C925D1"/>
+  <rect x="240" y="590" width="340" height="44" rx="8" fill="#F3E5F5" stroke="#C925D1" stroke-width="1.5"/>
+  <text x="260" y="612" fill="#7B1FA2" font-size="13" font-weight="bold">AfterInvocationEvent</text>
+  <text x="260" y="628" fill="#777" font-size="10">After entire request completes</text>
+
+  <rect x="620" y="590" width="340" height="44" rx="8" fill="white" stroke="#9E9E9E" stroke-width="1"/>
+  <text x="640" y="608" fill="#555" font-size="11">SessionManager.sync_agent()</text>
+  <text x="640" y="624" fill="#555" font-size="11">Cleanup, state persistence, logging</text>
+
+  <!-- HookRegistry box -->
+  <rect x="140" y="660" width="720" height="60" rx="10" fill="white" stroke="#C925D1" stroke-width="2"/>
+  <text x="500" y="685" text-anchor="middle" fill="#7B1FA2" font-size="13" font-weight="bold">HookRegistry</text>
+  <text x="500" y="705" text-anchor="middle" fill="#555" font-size="11">add_callback(EventType, fn) | HookProvider.register_hooks() | Supports union event types</text>
+
+  <!-- Footer -->
+  <text x="500" y="740" text-anchor="middle" fill="#999" font-size="10">strands/hooks/ — Event-driven extension system with retry, cancel, and interrupt support</text>
+</svg>

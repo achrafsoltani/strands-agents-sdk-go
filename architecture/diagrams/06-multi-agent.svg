@@ -1,0 +1,207 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 880" font-family="'Segoe UI', Arial, sans-serif">
+  <defs>
+    <linearGradient id="hdr6" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#232F3E"/>
+      <stop offset="100%" stop-color="#37475A"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1100" height="880" rx="12" fill="#F8F9FA"/>
+
+  <!-- Title -->
+  <rect width="1100" height="52" rx="12" fill="url(#hdr6)"/>
+  <rect y="40" width="1100" height="12" fill="url(#hdr6)"/>
+  <text x="550" y="34" text-anchor="middle" fill="white" font-size="18" font-weight="bold">Multi-Agent Patterns</text>
+
+  <!-- ============ PATTERN 1: GRAPH ============ -->
+  <rect x="30" y="70" width="500" height="370" rx="10" fill="white" stroke="#C925D1" stroke-width="2"/>
+  <rect x="30" y="70" width="500" height="32" rx="10" fill="#C925D1"/>
+  <rect x="30" y="92" width="500" height="10" fill="#C925D1"/>
+  <text x="280" y="94" text-anchor="middle" fill="white" font-size="14" font-weight="bold">Graph (Directed Acyclic / Cyclic)</text>
+
+  <text x="50" y="125" fill="#555" font-size="11">Deterministic execution via dependency resolution.</text>
+  <text x="50" y="140" fill="#555" font-size="11">Output of one node flows as input to connected nodes.</text>
+
+  <!-- Graph nodes -->
+  <rect x="200" y="155" width="130" height="40" rx="20" fill="#FF9900" stroke="none"/>
+  <text x="265" y="180" text-anchor="middle" fill="white" font-size="12" font-weight="bold">Agent A</text>
+
+  <rect x="70" y="225" width="130" height="40" rx="20" fill="#00A4EF" stroke="none"/>
+  <text x="135" y="250" text-anchor="middle" fill="white" font-size="12" font-weight="bold">Agent B</text>
+
+  <rect x="330" y="225" width="130" height="40" rx="20" fill="#00A4EF" stroke="none"/>
+  <text x="395" y="250" text-anchor="middle" fill="white" font-size="12" font-weight="bold">Agent C</text>
+
+  <rect x="200" y="295" width="130" height="40" rx="20" fill="#3F8624" stroke="none"/>
+  <text x="265" y="320" text-anchor="middle" fill="white" font-size="12" font-weight="bold">Agent D</text>
+
+  <!-- Graph edges -->
+  <line x1="230" y1="195" x2="165" y2="222" stroke="#555" stroke-width="2"/>
+  <polygon points="163,216 162,225 170,220" fill="#555"/>
+
+  <line x1="300" y1="195" x2="365" y2="222" stroke="#555" stroke-width="2"/>
+  <polygon points="360,217 368,222 363,228" fill="#555"/>
+
+  <line x1="165" y1="265" x2="230" y2="292" stroke="#555" stroke-width="2"/>
+  <polygon points="227,286 233,295 235,288" fill="#555"/>
+
+  <line x1="365" y1="265" x2="300" y2="292" stroke="#555" stroke-width="2"/>
+  <polygon points="297,286 297,295 305,289" fill="#555"/>
+
+  <!-- Graph API -->
+  <rect x="50" y="350" width="460" height="76" rx="8" fill="#FAFAFA" stroke="#9E9E9E" stroke-width="1"/>
+  <text x="70" y="370" fill="#333" font-size="11" font-family="'Courier New', monospace">graph = GraphBuilder()</text>
+  <text x="70" y="386" fill="#333" font-size="11" font-family="'Courier New', monospace">  .add_node("a", agent_a)</text>
+  <text x="70" y="402" fill="#333" font-size="11" font-family="'Courier New', monospace">  .add_edge("a", "b").add_edge("a", "c")</text>
+  <text x="70" y="418" fill="#333" font-size="11" font-family="'Courier New', monospace">  .add_edge("b", "d").add_edge("c", "d").build()</text>
+
+  <!-- ============ PATTERN 2: SWARM ============ -->
+  <rect x="570" y="70" width="500" height="370" rx="10" fill="white" stroke="#3F8624" stroke-width="2"/>
+  <rect x="570" y="70" width="500" height="32" rx="10" fill="#3F8624"/>
+  <rect x="570" y="92" width="500" height="10" fill="#3F8624"/>
+  <text x="820" y="94" text-anchor="middle" fill="white" font-size="14" font-weight="bold">Swarm (Collaborative Teams)</text>
+
+  <text x="590" y="125" fill="#555" font-size="11">Self-organising agents with shared working memory.</text>
+  <text x="590" y="140" fill="#555" font-size="11">Tool-based coordination: handoff_to_agent, swarm_complete.</text>
+
+  <!-- Swarm agents in a circle-ish layout -->
+  <ellipse cx="820" cy="235" rx="180" ry="100" fill="none" stroke="#3F8624" stroke-width="1" stroke-dasharray="5,3"/>
+
+  <rect x="755" y="160" width="130" height="36" rx="18" fill="#FF9900" stroke="none"/>
+  <text x="820" y="183" text-anchor="middle" fill="white" font-size="11" font-weight="bold">Coordinator</text>
+
+  <rect x="620" y="210" width="120" height="36" rx="18" fill="#00A4EF" stroke="none"/>
+  <text x="680" y="233" text-anchor="middle" fill="white" font-size="11" font-weight="bold">Researcher</text>
+
+  <rect x="910" y="210" width="120" height="36" rx="18" fill="#00A4EF" stroke="none"/>
+  <text x="970" y="233" text-anchor="middle" fill="white" font-size="11" font-weight="bold">Writer</text>
+
+  <rect x="680" y="275" width="120" height="36" rx="18" fill="#C925D1" stroke="none"/>
+  <text x="740" y="298" text-anchor="middle" fill="white" font-size="11" font-weight="bold">Reviewer</text>
+
+  <rect x="850" y="275" width="120" height="36" rx="18" fill="#C925D1" stroke="none"/>
+  <text x="910" y="298" text-anchor="middle" fill="white" font-size="11" font-weight="bold">Coder</text>
+
+  <!-- Shared memory -->
+  <rect x="755" y="230" width="130" height="30" rx="6" fill="#FFF8E1" stroke="#FFCC80" stroke-width="1"/>
+  <text x="820" y="250" text-anchor="middle" fill="#E65100" font-size="10" font-weight="600">Shared Memory</text>
+
+  <!-- Handoff arrows -->
+  <line x1="755" y1="178" x2="740" y2="178" stroke="#555" stroke-width="1.5"/>
+  <line x1="740" y1="178" x2="710" y2="210" stroke="#555" stroke-width="1.5"/>
+  <polygon points="708,204 708,213 716,208" fill="#555"/>
+
+  <line x1="885" y1="178" x2="910" y2="178" stroke="#555" stroke-width="1.5"/>
+  <line x1="910" y1="178" x2="940" y2="210" stroke="#555" stroke-width="1.5"/>
+  <polygon points="936,204 943,213 942,205" fill="#555"/>
+
+  <line x1="680" y1="246" x2="680" y2="272" stroke="#555" stroke-width="1.5"/>
+  <polygon points="677,269 680,277 683,269" fill="#555"/>
+
+  <line x1="970" y1="246" x2="940" y2="275" stroke="#555" stroke-width="1.5"/>
+  <polygon points="937,269 937,278 945,273" fill="#555"/>
+
+  <text x="980" y="170" fill="#3F8624" font-size="10" font-weight="600">handoff_to_agent()</text>
+
+  <!-- Swarm API -->
+  <rect x="590" y="330" width="460" height="96" rx="8" fill="#FAFAFA" stroke="#9E9E9E" stroke-width="1"/>
+  <text x="610" y="350" fill="#333" font-size="11" font-family="'Courier New', monospace">swarm = Swarm(</text>
+  <text x="610" y="366" fill="#333" font-size="11" font-family="'Courier New', monospace">  agents={"coord": agent_a,</text>
+  <text x="610" y="382" fill="#333" font-size="11" font-family="'Courier New', monospace">          "research": agent_b, ...},</text>
+  <text x="610" y="398" fill="#333" font-size="11" font-family="'Courier New', monospace">  swarm_manager="coord"</text>
+  <text x="610" y="414" fill="#333" font-size="11" font-family="'Courier New', monospace">)</text>
+
+  <!-- ============ PATTERN 3: AGENTS-AS-TOOLS ============ -->
+  <rect x="30" y="460" width="500" height="190" rx="10" fill="white" stroke="#FF9900" stroke-width="2"/>
+  <rect x="30" y="460" width="500" height="32" rx="10" fill="#FF9900"/>
+  <rect x="30" y="482" width="500" height="10" fill="#FF9900"/>
+  <text x="280" y="484" text-anchor="middle" fill="white" font-size="14" font-weight="bold">Agents-as-Tools (Hierarchical)</text>
+
+  <text x="50" y="510" fill="#555" font-size="11">An agent is wrapped as a tool callable by a parent agent.</text>
+
+  <!-- Parent agent -->
+  <rect x="180" y="525" width="170" height="44" rx="22" fill="#232F3E" stroke="none"/>
+  <text x="265" y="552" text-anchor="middle" fill="#FF9900" font-size="13" font-weight="bold">Parent Agent</text>
+
+  <!-- Child agents as tools -->
+  <rect x="60" y="590" width="130" height="36" rx="8" fill="#FFF3E0" stroke="#FF9900" stroke-width="1.5"/>
+  <text x="125" y="613" text-anchor="middle" fill="#E65100" font-size="11" font-weight="600">math_agent</text>
+
+  <rect x="210" y="590" width="130" height="36" rx="8" fill="#FFF3E0" stroke="#FF9900" stroke-width="1.5"/>
+  <text x="275" y="613" text-anchor="middle" fill="#E65100" font-size="11" font-weight="600">search_agent</text>
+
+  <rect x="360" y="590" width="130" height="36" rx="8" fill="#FFF3E0" stroke="#FF9900" stroke-width="1.5"/>
+  <text x="425" y="613" text-anchor="middle" fill="#E65100" font-size="11" font-weight="600">code_agent</text>
+
+  <!-- Arrows parent → children -->
+  <line x1="230" y1="569" x2="155" y2="587" stroke="#555" stroke-width="1.5"/>
+  <polygon points="153,581 153,590 161,585" fill="#555"/>
+
+  <line x1="265" y1="569" x2="265" y2="587" stroke="#555" stroke-width="1.5"/>
+  <polygon points="262,584 265,592 268,584" fill="#555"/>
+
+  <line x1="300" y1="569" x2="390" y2="587" stroke="#555" stroke-width="1.5"/>
+  <polygon points="387,581 393,590 391,582" fill="#555"/>
+
+  <text x="50" y="640" fill="#777" font-size="10">The LLM decides which sub-agent to invoke like any other tool</text>
+
+  <!-- ============ PATTERN 4: A2A ============ -->
+  <rect x="570" y="460" width="500" height="190" rx="10" fill="white" stroke="#00A4EF" stroke-width="2"/>
+  <rect x="570" y="460" width="500" height="32" rx="10" fill="#00A4EF"/>
+  <rect x="570" y="482" width="500" height="10" fill="#00A4EF"/>
+  <text x="820" y="484" text-anchor="middle" fill="white" font-size="14" font-weight="bold">A2A (Agent-to-Agent Protocol)</text>
+
+  <text x="590" y="510" fill="#555" font-size="11">Standardised inter-agent communication over HTTP.</text>
+
+  <!-- A2A agents -->
+  <rect x="620" y="530" width="140" height="50" rx="8" fill="#E3F2FD" stroke="#00A4EF" stroke-width="1.5"/>
+  <text x="690" y="552" text-anchor="middle" fill="#1565C0" font-size="12" font-weight="bold">Agent (Client)</text>
+  <text x="690" y="568" text-anchor="middle" fill="#777" font-size="10">A2AExecutor</text>
+
+  <rect x="880" y="530" width="140" height="50" rx="8" fill="#E3F2FD" stroke="#00A4EF" stroke-width="1.5"/>
+  <text x="950" y="552" text-anchor="middle" fill="#1565C0" font-size="12" font-weight="bold">Agent (Server)</text>
+  <text x="950" y="568" text-anchor="middle" fill="#777" font-size="10">A2AServer</text>
+
+  <!-- Bidirectional arrows -->
+  <line x1="760" y1="548" x2="875" y2="548" stroke="#00A4EF" stroke-width="2"/>
+  <polygon points="872,545 880,548 872,551" fill="#00A4EF"/>
+
+  <line x1="880" y1="560" x2="765" y2="560" stroke="#FF9900" stroke-width="2"/>
+  <polygon points="768,557 760,560 768,563" fill="#FF9900"/>
+
+  <text x="820" y="540" text-anchor="middle" fill="#00A4EF" font-size="10" font-weight="600">task request</text>
+  <text x="820" y="575" text-anchor="middle" fill="#FF9900" font-size="10" font-weight="600">task result</text>
+
+  <rect x="700" y="600" width="260" height="36" rx="6" fill="#FAFAFA" stroke="#9E9E9E" stroke-width="1"/>
+  <text x="830" y="618" text-anchor="middle" fill="#555" font-size="11">Protocol: Google A2A spec over HTTP</text>
+  <text x="830" y="630" text-anchor="middle" fill="#777" font-size="9">a2a/server.py + a2a/executor.py</text>
+
+  <!-- ============ BASE CLASS ============ -->
+  <rect x="200" y="670" width="700" height="100" rx="10" fill="white" stroke="#333" stroke-width="2"/>
+  <text x="550" y="696" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">MultiAgentBase (ABC)</text>
+
+  <rect x="220" y="710" width="200" height="44" rx="6" fill="#FAFAFA" stroke="#9E9E9E" stroke-width="1"/>
+  <text x="320" y="728" text-anchor="middle" fill="#555" font-size="11" font-weight="600">invoke_async(task)</text>
+  <text x="320" y="744" text-anchor="middle" fill="#777" font-size="10">→ MultiAgentResult</text>
+
+  <rect x="440" y="710" width="200" height="44" rx="6" fill="#FAFAFA" stroke="#9E9E9E" stroke-width="1"/>
+  <text x="540" y="728" text-anchor="middle" fill="#555" font-size="11" font-weight="600">stream_async(task)</text>
+  <text x="540" y="744" text-anchor="middle" fill="#777" font-size="10">→ AsyncIterator[events]</text>
+
+  <rect x="660" y="710" width="220" height="44" rx="6" fill="#FAFAFA" stroke="#9E9E9E" stroke-width="1"/>
+  <text x="770" y="728" text-anchor="middle" fill="#555" font-size="11" font-weight="600">serialize/deserialize_state()</text>
+  <text x="770" y="744" text-anchor="middle" fill="#777" font-size="10">Session persistence</text>
+
+  <!-- Arrows: patterns → base -->
+  <line x1="280" y1="440" x2="450" y2="668" stroke="#555" stroke-width="1" stroke-dasharray="4,3"/>
+  <line x1="820" y1="440" x2="650" y2="668" stroke="#555" stroke-width="1" stroke-dasharray="4,3"/>
+
+  <!-- Result structure -->
+  <rect x="200" y="790" width="700" height="66" rx="10" fill="#FFF8E1" stroke="#FFCC80" stroke-width="1.5"/>
+  <text x="550" y="815" text-anchor="middle" fill="#E65100" font-size="13" font-weight="bold">MultiAgentResult</text>
+  <text x="550" y="840" text-anchor="middle" fill="#555" font-size="11">status: Status | results: dict[str, NodeResult] | accumulated_usage | accumulated_metrics | interrupts</text>
+
+  <!-- Footer -->
+  <text x="550" y="872" text-anchor="middle" fill="#999" font-size="10">strands/multiagent/ — Graph, Swarm, A2A, and Agents-as-Tools composition patterns</text>
+</svg>

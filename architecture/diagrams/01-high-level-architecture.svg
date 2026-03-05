@@ -1,0 +1,160 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 720" font-family="'Segoe UI', Arial, sans-serif">
+  <defs>
+    <linearGradient id="headerGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#232F3E"/>
+      <stop offset="100%" stop-color="#37475A"/>
+    </linearGradient>
+    <linearGradient id="agentGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FF9900"/>
+      <stop offset="100%" stop-color="#EC7211"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1100" height="720" rx="12" fill="#F8F9FA"/>
+
+  <!-- Title Bar -->
+  <rect width="1100" height="56" rx="12" fill="url(#headerGrad)"/>
+  <rect y="44" width="1100" height="12" fill="url(#headerGrad)"/>
+  <text x="550" y="36" text-anchor="middle" fill="white" font-size="20" font-weight="bold">Strands Agents SDK — High-Level Architecture</text>
+
+  <!-- User -->
+  <rect x="460" y="80" width="180" height="44" rx="22" fill="#00A4EF" stroke="#0078D4" stroke-width="1.5"/>
+  <text x="550" y="108" text-anchor="middle" fill="white" font-size="15" font-weight="600">User / Application</text>
+
+  <!-- Arrow: User → Agent -->
+  <line x1="550" y1="124" x2="550" y2="156" stroke="#555" stroke-width="2"/>
+  <polygon points="547,150 550,158 553,150" fill="#555"/>
+
+  <!-- Agent Box (main container) -->
+  <rect x="60" y="160" width="980" height="200" rx="10" fill="white" stroke="#FF9900" stroke-width="2.5"/>
+  <rect x="60" y="160" width="980" height="36" rx="10" fill="url(#agentGrad)"/>
+  <rect x="60" y="186" width="980" height="10" fill="url(#agentGrad)"/>
+  <text x="550" y="184" text-anchor="middle" fill="white" font-size="16" font-weight="bold">Agent</text>
+
+  <!-- Inside Agent: Event Loop -->
+  <rect x="90" y="210" width="240" height="60" rx="8" fill="#E8F5E9" stroke="#3F8624" stroke-width="1.5"/>
+  <text x="210" y="236" text-anchor="middle" fill="#2E7D32" font-size="13" font-weight="600">Event Loop</text>
+  <text x="210" y="256" text-anchor="middle" fill="#555" font-size="11">event_loop_cycle()</text>
+
+  <!-- Inside Agent: Model Provider -->
+  <rect x="360" y="210" width="200" height="60" rx="8" fill="#E3F2FD" stroke="#00A4EF" stroke-width="1.5"/>
+  <text x="460" y="236" text-anchor="middle" fill="#1565C0" font-size="13" font-weight="600">Model Provider</text>
+  <text x="460" y="256" text-anchor="middle" fill="#555" font-size="11">Model.stream()</text>
+
+  <!-- Inside Agent: Tool Registry -->
+  <rect x="590" y="210" width="200" height="60" rx="8" fill="#FFF3E0" stroke="#FF9900" stroke-width="1.5"/>
+  <text x="690" y="236" text-anchor="middle" fill="#E65100" font-size="13" font-weight="600">Tool Registry</text>
+  <text x="690" y="256" text-anchor="middle" fill="#555" font-size="11">ToolRegistry</text>
+
+  <!-- Inside Agent: Hooks -->
+  <rect x="820" y="210" width="190" height="60" rx="8" fill="#F3E5F5" stroke="#C925D1" stroke-width="1.5"/>
+  <text x="915" y="236" text-anchor="middle" fill="#7B1FA2" font-size="13" font-weight="600">Hooks &amp; Plugins</text>
+  <text x="915" y="256" text-anchor="middle" fill="#555" font-size="11">HookRegistry</text>
+
+  <!-- Inside Agent: Messages/State/Session row -->
+  <rect x="90" y="290" width="160" height="50" rx="8" fill="#FAFAFA" stroke="#9E9E9E" stroke-width="1"/>
+  <text x="170" y="312" text-anchor="middle" fill="#333" font-size="12" font-weight="600">Messages</text>
+  <text x="170" y="328" text-anchor="middle" fill="#777" font-size="10">Conversation history</text>
+
+  <rect x="270" y="290" width="160" height="50" rx="8" fill="#FAFAFA" stroke="#9E9E9E" stroke-width="1"/>
+  <text x="350" y="312" text-anchor="middle" fill="#333" font-size="12" font-weight="600">AgentState</text>
+  <text x="350" y="328" text-anchor="middle" fill="#777" font-size="10">Persistent state dict</text>
+
+  <rect x="450" y="290" width="190" height="50" rx="8" fill="#FAFAFA" stroke="#9E9E9E" stroke-width="1"/>
+  <text x="545" y="312" text-anchor="middle" fill="#333" font-size="12" font-weight="600">ConversationManager</text>
+  <text x="545" y="328" text-anchor="middle" fill="#777" font-size="10">Window / Summarise</text>
+
+  <rect x="660" y="290" width="160" height="50" rx="8" fill="#FAFAFA" stroke="#9E9E9E" stroke-width="1"/>
+  <text x="740" y="312" text-anchor="middle" fill="#333" font-size="12" font-weight="600">SessionManager</text>
+  <text x="740" y="328" text-anchor="middle" fill="#777" font-size="10">File / S3 / Repo</text>
+
+  <rect x="840" y="290" width="170" height="50" rx="8" fill="#FAFAFA" stroke="#9E9E9E" stroke-width="1"/>
+  <text x="925" y="312" text-anchor="middle" fill="#333" font-size="12" font-weight="600">Telemetry</text>
+  <text x="925" y="328" text-anchor="middle" fill="#777" font-size="10">OpenTelemetry spans</text>
+
+  <!-- Arrows inside Agent -->
+  <line x1="330" y1="240" x2="355" y2="240" stroke="#555" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <polygon points="352,237 360,240 352,243" fill="#555"/>
+
+  <line x1="560" y1="240" x2="585" y2="240" stroke="#555" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <polygon points="582,237 590,240 582,243" fill="#555"/>
+
+  <line x1="790" y1="240" x2="815" y2="240" stroke="#555" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <polygon points="812,237 820,240 812,243" fill="#555"/>
+
+  <!-- Model Providers Row -->
+  <text x="550" y="400" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">Model Providers</text>
+
+  <rect x="60" y="415" width="120" height="40" rx="6" fill="#232F3E" stroke="none"/>
+  <text x="120" y="440" text-anchor="middle" fill="white" font-size="11" font-weight="600">Bedrock</text>
+
+  <rect x="195" y="415" width="120" height="40" rx="6" fill="#D4A574" stroke="none"/>
+  <text x="255" y="440" text-anchor="middle" fill="#333" font-size="11" font-weight="600">Anthropic</text>
+
+  <rect x="330" y="415" width="120" height="40" rx="6" fill="#10A37F" stroke="none"/>
+  <text x="390" y="440" text-anchor="middle" fill="white" font-size="11" font-weight="600">OpenAI</text>
+
+  <rect x="465" y="415" width="120" height="40" rx="6" fill="#4285F4" stroke="none"/>
+  <text x="525" y="440" text-anchor="middle" fill="white" font-size="11" font-weight="600">Gemini</text>
+
+  <rect x="600" y="415" width="120" height="40" rx="6" fill="#0078D4" stroke="none"/>
+  <text x="660" y="440" text-anchor="middle" fill="white" font-size="11" font-weight="600">Ollama</text>
+
+  <rect x="735" y="415" width="120" height="40" rx="6" fill="#6B7280" stroke="none"/>
+  <text x="795" y="440" text-anchor="middle" fill="white" font-size="11" font-weight="600">llama.cpp</text>
+
+  <rect x="870" y="415" width="120" height="40" rx="6" fill="#9CA3AF" stroke="none"/>
+  <text x="930" y="440" text-anchor="middle" fill="white" font-size="11" font-weight="600">LiteLLM</text>
+
+  <!-- Arrow: Agent → Providers -->
+  <line x1="460" y1="360" x2="460" y2="410" stroke="#00A4EF" stroke-width="1.5"/>
+  <polygon points="457,407 460,415 463,407" fill="#00A4EF"/>
+
+  <!-- Tool Sources Row -->
+  <text x="550" y="495" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">Tool Sources</text>
+
+  <rect x="80" y="510" width="200" height="50" rx="8" fill="#FFF8E1" stroke="#FF9900" stroke-width="1.5"/>
+  <text x="180" y="533" text-anchor="middle" fill="#E65100" font-size="12" font-weight="600">@tool Decorator</text>
+  <text x="180" y="548" text-anchor="middle" fill="#777" font-size="10">Python functions</text>
+
+  <rect x="310" y="510" width="200" height="50" rx="8" fill="#FFF8E1" stroke="#FF9900" stroke-width="1.5"/>
+  <text x="410" y="533" text-anchor="middle" fill="#E65100" font-size="12" font-weight="600">strands-agents-tools</text>
+  <text x="410" y="548" text-anchor="middle" fill="#777" font-size="10">60+ pre-built tools</text>
+
+  <rect x="540" y="510" width="200" height="50" rx="8" fill="#FFF8E1" stroke="#FF9900" stroke-width="1.5"/>
+  <text x="640" y="533" text-anchor="middle" fill="#E65100" font-size="12" font-weight="600">MCP Servers</text>
+  <text x="640" y="548" text-anchor="middle" fill="#777" font-size="10">Model Context Protocol</text>
+
+  <rect x="770" y="510" width="240" height="50" rx="8" fill="#FFF8E1" stroke="#FF9900" stroke-width="1.5"/>
+  <text x="890" y="533" text-anchor="middle" fill="#E65100" font-size="12" font-weight="600">Directory Hot-Reload</text>
+  <text x="890" y="548" text-anchor="middle" fill="#777" font-size="10">./tools/ auto-discovery</text>
+
+  <!-- Arrow: Agent → Tools -->
+  <line x1="690" y1="360" x2="690" y2="410" stroke="#FF9900" stroke-width="1.5"/>
+  <polygon points="687,407 690,415 693,407" fill="#FF9900"/>
+  <line x1="690" y1="455" x2="690" y2="505" stroke="#FF9900" stroke-width="1.5"/>
+  <polygon points="687,502 690,510 693,502" fill="#FF9900"/>
+
+  <!-- Multi-Agent Row -->
+  <text x="550" y="600" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">Multi-Agent Patterns</text>
+
+  <rect x="120" y="615" width="200" height="50" rx="8" fill="#F3E5F5" stroke="#C925D1" stroke-width="1.5"/>
+  <text x="220" y="638" text-anchor="middle" fill="#7B1FA2" font-size="12" font-weight="600">Graph (DAG)</text>
+  <text x="220" y="653" text-anchor="middle" fill="#777" font-size="10">Deterministic workflows</text>
+
+  <rect x="360" y="615" width="200" height="50" rx="8" fill="#F3E5F5" stroke="#C925D1" stroke-width="1.5"/>
+  <text x="460" y="638" text-anchor="middle" fill="#7B1FA2" font-size="12" font-weight="600">Swarm</text>
+  <text x="460" y="653" text-anchor="middle" fill="#777" font-size="10">Collaborative teams</text>
+
+  <rect x="600" y="615" width="200" height="50" rx="8" fill="#F3E5F5" stroke="#C925D1" stroke-width="1.5"/>
+  <text x="700" y="638" text-anchor="middle" fill="#7B1FA2" font-size="12" font-weight="600">Agents-as-Tools</text>
+  <text x="700" y="653" text-anchor="middle" fill="#777" font-size="10">Hierarchical delegation</text>
+
+  <rect x="840" y="615" width="160" height="50" rx="8" fill="#F3E5F5" stroke="#C925D1" stroke-width="1.5"/>
+  <text x="920" y="638" text-anchor="middle" fill="#7B1FA2" font-size="12" font-weight="600">A2A Protocol</text>
+  <text x="920" y="653" text-anchor="middle" fill="#777" font-size="10">Inter-agent comms</text>
+
+  <!-- Footer -->
+  <text x="550" y="700" text-anchor="middle" fill="#999" font-size="10">Strands Agents SDK Architecture — github.com/strands-agents</text>
+</svg>

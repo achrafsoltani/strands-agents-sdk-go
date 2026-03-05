@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 680" font-family="'Segoe UI', Arial, sans-serif">
+  <defs>
+    <linearGradient id="hdr8" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#232F3E"/>
+      <stop offset="100%" stop-color="#37475A"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1100" height="680" rx="12" fill="#F8F9FA"/>
+
+  <!-- Title -->
+  <rect width="1100" height="52" rx="12" fill="url(#hdr8)"/>
+  <rect y="40" width="1100" height="12" fill="url(#hdr8)"/>
+  <text x="550" y="34" text-anchor="middle" fill="white" font-size="18" font-weight="bold">End-to-End Data Flow — Single Agent Invocation</text>
+
+  <!-- Step numbers with connecting line -->
+  <line x1="80" y1="80" x2="80" y2="640" stroke="#DDD" stroke-width="3"/>
+
+  <!-- Step 1: User Input -->
+  <circle cx="80" cy="100" r="18" fill="#00A4EF" stroke="none"/>
+  <text x="80" y="106" text-anchor="middle" fill="white" font-size="14" font-weight="bold">1</text>
+
+  <rect x="120" y="78" width="920" height="48" rx="8" fill="white" stroke="#00A4EF" stroke-width="1.5"/>
+  <text x="140" y="100" fill="#1565C0" font-size="13" font-weight="bold">User Input</text>
+  <text x="140" y="118" fill="#555" font-size="11">agent("What's the weather in London?") → convert to Message(role="user", content=[{text: "..."}]) → append to messages</text>
+
+  <!-- Step 2: BeforeInvocation hook -->
+  <circle cx="80" cy="160" r="18" fill="#C925D1" stroke="none"/>
+  <text x="80" y="166" text-anchor="middle" fill="white" font-size="14" font-weight="bold">2</text>
+
+  <rect x="120" y="138" width="920" height="48" rx="8" fill="white" stroke="#C925D1" stroke-width="1.5"/>
+  <text x="140" y="160" fill="#7B1FA2" font-size="13" font-weight="bold">Hooks: BeforeInvocationEvent</text>
+  <text x="140" y="178" fill="#555" font-size="11">SessionManager restores state if resuming | Hooks can modify/redact input messages | Guardrails validate input</text>
+
+  <!-- Step 3: Model Call -->
+  <circle cx="80" cy="222" r="18" fill="#00A4EF" stroke="none"/>
+  <text x="80" y="228" text-anchor="middle" fill="white" font-size="14" font-weight="bold">3</text>
+
+  <rect x="120" y="198" width="920" height="52" rx="8" fill="white" stroke="#00A4EF" stroke-width="1.5"/>
+  <text x="140" y="220" fill="#1565C0" font-size="13" font-weight="bold">Model Inference</text>
+  <text x="140" y="238" fill="#555" font-size="11">BeforeModelCallEvent → Model.stream(messages, tool_specs, system_prompt) → streaming chunks → AfterModelCallEvent</text>
+  <text x="930" y="220" text-anchor="end" fill="#999" font-size="10">Retry on throttle</text>
+
+  <!-- Step 4: Response routing -->
+  <circle cx="80" cy="290" r="18" fill="#FF9900" stroke="none"/>
+  <text x="80" y="296" text-anchor="middle" fill="white" font-size="14" font-weight="bold">4</text>
+
+  <rect x="120" y="266" width="920" height="52" rx="8" fill="white" stroke="#FF9900" stroke-width="1.5"/>
+  <text x="140" y="288" fill="#E65100" font-size="13" font-weight="bold">Response Routing</text>
+  <text x="140" y="306" fill="#555" font-size="11">stop_reason = "end_turn" → go to Step 8 | "tool_use" → go to Step 5 | "max_tokens" → raise exception</text>
+
+  <!-- Step 5: Tool execution -->
+  <circle cx="80" cy="358" r="18" fill="#FF9900" stroke="none"/>
+  <text x="80" y="364" text-anchor="middle" fill="white" font-size="14" font-weight="bold">5</text>
+
+  <rect x="120" y="332" width="920" height="56" rx="8" fill="white" stroke="#FF9900" stroke-width="1.5"/>
+  <text x="140" y="354" fill="#E65100" font-size="13" font-weight="bold">Tool Execution</text>
+  <text x="140" y="372" fill="#555" font-size="11">Extract ToolUse blocks → BeforeToolCallEvent (can cancel/interrupt) → tool.stream(input) → AfterToolCallEvent (can retry)</text>
+  <text x="140" y="384" fill="#999" font-size="10">Concurrent or sequential depending on executor | Each tool traced with OpenTelemetry span</text>
+
+  <!-- Step 6: Tool results -->
+  <circle cx="80" cy="426" r="18" fill="#3F8624" stroke="none"/>
+  <text x="80" y="432" text-anchor="middle" fill="white" font-size="14" font-weight="bold">6</text>
+
+  <rect x="120" y="402" width="920" height="52" rx="8" fill="white" stroke="#3F8624" stroke-width="1.5"/>
+  <text x="140" y="424" fill="#2E7D32" font-size="13" font-weight="bold">Tool Results → Messages</text>
+  <text x="140" y="442" fill="#555" font-size="11">Build Message(role="user", content=[{toolResult: {toolUseId, status, content}}]) → append to messages → MessageAddedEvent</text>
+
+  <!-- Step 7: Recurse -->
+  <circle cx="80" cy="492" r="18" fill="#00A4EF" stroke="none"/>
+  <text x="80" y="498" text-anchor="middle" fill="white" font-size="14" font-weight="bold">7</text>
+
+  <rect x="120" y="468" width="920" height="52" rx="8" fill="white" stroke="#00A4EF" stroke-width="1.5"/>
+  <text x="140" y="490" fill="#1565C0" font-size="13" font-weight="bold">Recurse Event Loop</text>
+  <text x="140" y="508" fill="#555" font-size="11">Unless stop_event_loop flag is set → recurse_event_loop() → back to Step 3 (new cycle with tool results in context)</text>
+
+  <!-- Back arrow -->
+  <line x1="1045" y1="494" x2="1060" y2="494" stroke="#00A4EF" stroke-width="2"/>
+  <line x1="1060" y1="494" x2="1060" y2="215" stroke="#00A4EF" stroke-width="2" stroke-dasharray="6,3"/>
+  <line x1="1060" y1="215" x2="1045" y2="215" stroke="#00A4EF" stroke-width="2"/>
+  <polygon points="1048,212 1040,215 1048,218" fill="#00A4EF"/>
+  <text x="1070" y="360" text-anchor="start" fill="#00A4EF" font-size="10" font-weight="600" transform="rotate(90, 1070, 360)">LOOP</text>
+
+  <!-- Step 8: Final Response -->
+  <circle cx="80" cy="560" r="18" fill="#3F8624" stroke="none"/>
+  <text x="80" y="566" text-anchor="middle" fill="white" font-size="14" font-weight="bold">8</text>
+
+  <rect x="120" y="536" width="920" height="52" rx="8" fill="white" stroke="#3F8624" stroke-width="1.5"/>
+  <text x="140" y="558" fill="#2E7D32" font-size="13" font-weight="bold">Final Response</text>
+  <text x="140" y="576" fill="#555" font-size="11">EventLoopStopEvent → AfterInvocationEvent → SessionManager.sync_agent() → return AgentResult(stop_reason, message, metrics)</text>
+
+  <!-- Step 9: AgentResult -->
+  <circle cx="80" cy="626" r="18" fill="#232F3E" stroke="none"/>
+  <text x="80" y="632" text-anchor="middle" fill="white" font-size="14" font-weight="bold">9</text>
+
+  <rect x="120" y="604" width="920" height="44" rx="8" fill="white" stroke="#232F3E" stroke-width="1.5"/>
+  <text x="140" y="626" fill="#333" font-size="13" font-weight="bold">AgentResult</text>
+  <text x="140" y="640" fill="#555" font-size="11">stop_reason | message (text content) | metrics (tokens, latency) | state | interrupts | structured_output</text>
+
+  <!-- Footer -->
+  <text x="550" y="670" text-anchor="middle" fill="#999" font-size="10">Steps 3-7 repeat until the model returns "end_turn" — typically 1-5 cycles for most tasks</text>
+</svg>

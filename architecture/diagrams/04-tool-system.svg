@@ -1,0 +1,155 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1060 800" font-family="'Segoe UI', Arial, sans-serif">
+  <defs>
+    <linearGradient id="hdr4" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#232F3E"/>
+      <stop offset="100%" stop-color="#37475A"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1060" height="800" rx="12" fill="#F8F9FA"/>
+
+  <!-- Title -->
+  <rect width="1060" height="52" rx="12" fill="url(#hdr4)"/>
+  <rect y="40" width="1060" height="12" fill="url(#hdr4)"/>
+  <text x="530" y="34" text-anchor="middle" fill="white" font-size="18" font-weight="bold">Tool System Architecture</text>
+
+  <!-- ============ TOP: Tool Sources ============ -->
+  <text x="530" y="85" text-anchor="middle" fill="#333" font-size="15" font-weight="bold">Tool Sources</text>
+
+  <!-- @tool decorator -->
+  <rect x="40" y="100" width="220" height="110" rx="10" fill="white" stroke="#FF9900" stroke-width="2"/>
+  <rect x="40" y="100" width="220" height="30" rx="10" fill="#FF9900"/>
+  <rect x="40" y="120" width="220" height="10" fill="#FF9900"/>
+  <text x="150" y="122" text-anchor="middle" fill="white" font-size="13" font-weight="bold">@tool Decorator</text>
+  <text x="60" y="150" fill="#555" font-size="10">1. Inspect function signature</text>
+  <text x="60" y="165" fill="#555" font-size="10">2. Parse docstring → description</text>
+  <text x="60" y="180" fill="#555" font-size="10">3. Generate JSON Schema</text>
+  <text x="60" y="195" fill="#555" font-size="10">4. → DecoratedFunctionTool</text>
+
+  <!-- Module import -->
+  <rect x="290" y="100" width="180" height="110" rx="10" fill="white" stroke="#FF9900" stroke-width="2"/>
+  <rect x="290" y="100" width="180" height="30" rx="10" fill="#FF9900"/>
+  <rect x="290" y="120" width="180" height="10" fill="#FF9900"/>
+  <text x="380" y="122" text-anchor="middle" fill="white" font-size="13" font-weight="bold">Module Import</text>
+  <text x="310" y="150" fill="#555" font-size="10">String path or module</text>
+  <text x="310" y="165" fill="#555" font-size="10">TOOL_SPEC dict +</text>
+  <text x="310" y="180" fill="#555" font-size="10">callable function</text>
+  <text x="310" y="195" fill="#555" font-size="10">→ PythonAgentTool</text>
+
+  <!-- MCP Client -->
+  <rect x="500" y="100" width="220" height="110" rx="10" fill="white" stroke="#00A4EF" stroke-width="2"/>
+  <rect x="500" y="100" width="220" height="30" rx="10" fill="#00A4EF"/>
+  <rect x="500" y="120" width="220" height="10" fill="#00A4EF"/>
+  <text x="610" y="122" text-anchor="middle" fill="white" font-size="13" font-weight="bold">MCP Client</text>
+  <text x="520" y="150" fill="#555" font-size="10">Connect to MCP server</text>
+  <text x="520" y="165" fill="#555" font-size="10">list_tools() → discover</text>
+  <text x="520" y="180" fill="#555" font-size="10">call_tool() → execute</text>
+  <text x="520" y="195" fill="#555" font-size="10">→ MCPAgentTool per tool</text>
+
+  <!-- Directory loader -->
+  <rect x="750" y="100" width="260" height="110" rx="10" fill="white" stroke="#3F8624" stroke-width="2"/>
+  <rect x="750" y="100" width="260" height="30" rx="10" fill="#3F8624"/>
+  <rect x="750" y="120" width="260" height="10" fill="#3F8624"/>
+  <text x="880" y="122" text-anchor="middle" fill="white" font-size="13" font-weight="bold">Directory Hot-Reload</text>
+  <text x="770" y="150" fill="#555" font-size="10">Scan ./tools/ directory</text>
+  <text x="770" y="165" fill="#555" font-size="10">Import .py files dynamically</text>
+  <text x="770" y="180" fill="#555" font-size="10">FileWatcher monitors changes</text>
+  <text x="770" y="195" fill="#555" font-size="10">Re-register on modification</text>
+
+  <!-- Arrows down to Registry -->
+  <line x1="150" y1="210" x2="150" y2="260" stroke="#FF9900" stroke-width="2"/>
+  <polygon points="147,257 150,265 153,257" fill="#FF9900"/>
+  <line x1="380" y1="210" x2="380" y2="260" stroke="#FF9900" stroke-width="2"/>
+  <polygon points="377,257 380,265 383,257" fill="#FF9900"/>
+  <line x1="610" y1="210" x2="610" y2="260" stroke="#00A4EF" stroke-width="2"/>
+  <polygon points="607,257 610,265 613,257" fill="#00A4EF"/>
+  <line x1="880" y1="210" x2="880" y2="260" stroke="#3F8624" stroke-width="2"/>
+  <polygon points="877,257 880,265 883,257" fill="#3F8624"/>
+
+  <!-- ============ MIDDLE: Tool Registry ============ -->
+  <rect x="100" y="270" width="860" height="120" rx="10" fill="white" stroke="#E65100" stroke-width="2.5"/>
+  <rect x="100" y="270" width="860" height="34" rx="10" fill="#E65100"/>
+  <rect x="100" y="294" width="860" height="10" fill="#E65100"/>
+  <text x="530" y="294" text-anchor="middle" fill="white" font-size="15" font-weight="bold">ToolRegistry</text>
+
+  <!-- Registry internals -->
+  <rect x="130" y="315" width="240" height="60" rx="8" fill="#FFF8E1" stroke="#FFCC80" stroke-width="1"/>
+  <text x="250" y="336" text-anchor="middle" fill="#E65100" font-size="12" font-weight="bold">registry: dict[str, AgentTool]</text>
+  <text x="250" y="354" text-anchor="middle" fill="#777" font-size="10">All registered tools (name → tool)</text>
+  <text x="250" y="368" text-anchor="middle" fill="#777" font-size="10">Validated name: ^[a-zA-Z0-9_-]{1,64}$</text>
+
+  <rect x="400" y="315" width="260" height="60" rx="8" fill="#FFF8E1" stroke="#FFCC80" stroke-width="1"/>
+  <text x="530" y="336" text-anchor="middle" fill="#E65100" font-size="12" font-weight="bold">dynamic_tools: dict[str, AgentTool]</text>
+  <text x="530" y="354" text-anchor="middle" fill="#777" font-size="10">Tools active for current invocation</text>
+  <text x="530" y="368" text-anchor="middle" fill="#777" font-size="10">(subset of registry)</text>
+
+  <rect x="690" y="315" width="240" height="60" rx="8" fill="#FFF8E1" stroke="#FFCC80" stroke-width="1"/>
+  <text x="810" y="336" text-anchor="middle" fill="#E65100" font-size="12" font-weight="bold">get_all_tool_specs()</text>
+  <text x="810" y="354" text-anchor="middle" fill="#777" font-size="10">Returns list[ToolSpec] for model</text>
+  <text x="810" y="368" text-anchor="middle" fill="#777" font-size="10">(name, description, inputSchema)</text>
+
+  <!-- ============ AgentTool hierarchy ============ -->
+  <text x="530" y="420" text-anchor="middle" fill="#333" font-size="15" font-weight="bold">AgentTool Hierarchy</text>
+
+  <!-- AgentTool base -->
+  <rect x="370" y="435" width="320" height="60" rx="8" fill="white" stroke="#333" stroke-width="2"/>
+  <text x="530" y="460" text-anchor="middle" fill="#333" font-size="13" font-weight="bold">AgentTool (ABC)</text>
+  <text x="530" y="480" text-anchor="middle" fill="#777" font-size="11">stream(tool_use, state) → AsyncGenerator</text>
+
+  <!-- Lines down -->
+  <line x1="530" y1="495" x2="530" y2="515" stroke="#555" stroke-width="1.5"/>
+  <line x1="200" y1="515" x2="860" y2="515" stroke="#555" stroke-width="1.5"/>
+
+  <line x1="200" y1="515" x2="200" y2="535" stroke="#555" stroke-width="1.5"/>
+  <polygon points="197,532 200,540 203,532" fill="#555"/>
+  <line x1="440" y1="515" x2="440" y2="535" stroke="#555" stroke-width="1.5"/>
+  <polygon points="437,532 440,540 443,532" fill="#555"/>
+  <line x1="680" y1="515" x2="680" y2="535" stroke="#555" stroke-width="1.5"/>
+  <polygon points="677,532 680,540 683,532" fill="#555"/>
+  <line x1="860" y1="515" x2="860" y2="535" stroke="#555" stroke-width="1.5"/>
+  <polygon points="857,532 860,540 863,532" fill="#555"/>
+
+  <!-- Concrete tools -->
+  <rect x="100" y="542" width="200" height="55" rx="8" fill="#E8F5E9" stroke="#3F8624" stroke-width="1.5"/>
+  <text x="200" y="564" text-anchor="middle" fill="#2E7D32" font-size="12" font-weight="bold">DecoratedFunctionTool</text>
+  <text x="200" y="582" text-anchor="middle" fill="#777" font-size="10">From @tool decorator</text>
+
+  <rect x="340" y="542" width="200" height="55" rx="8" fill="#FFF3E0" stroke="#FF9900" stroke-width="1.5"/>
+  <text x="440" y="564" text-anchor="middle" fill="#E65100" font-size="12" font-weight="bold">PythonAgentTool</text>
+  <text x="440" y="582" text-anchor="middle" fill="#777" font-size="10">From TOOL_SPEC modules</text>
+
+  <rect x="580" y="542" width="200" height="55" rx="8" fill="#E3F2FD" stroke="#00A4EF" stroke-width="1.5"/>
+  <text x="680" y="564" text-anchor="middle" fill="#1565C0" font-size="12" font-weight="bold">MCPAgentTool</text>
+  <text x="680" y="582" text-anchor="middle" fill="#777" font-size="10">From MCP server</text>
+
+  <rect x="790" y="542" width="140" height="55" rx="8" fill="#F3E5F5" stroke="#C925D1" stroke-width="1.5"/>
+  <text x="860" y="564" text-anchor="middle" fill="#7B1FA2" font-size="12" font-weight="bold">StructuredOutput</text>
+  <text x="860" y="582" text-anchor="middle" fill="#777" font-size="10">Pydantic enforcer</text>
+
+  <!-- ============ BOTTOM: Tool Executors ============ -->
+  <text x="530" y="630" text-anchor="middle" fill="#333" font-size="15" font-weight="bold">Tool Executors</text>
+
+  <rect x="160" y="645" width="320" height="100" rx="10" fill="white" stroke="#3F8624" stroke-width="2"/>
+  <rect x="160" y="645" width="320" height="30" rx="10" fill="#3F8624"/>
+  <rect x="160" y="665" width="320" height="10" fill="#3F8624"/>
+  <text x="320" y="668" text-anchor="middle" fill="white" font-size="13" font-weight="bold">SequentialToolExecutor</text>
+  <text x="180" y="698" fill="#555" font-size="11">Execute tools one at a time</text>
+  <text x="180" y="715" fill="#555" font-size="11">Ordered, predictable execution</text>
+  <text x="180" y="732" fill="#555" font-size="11">Simple error isolation</text>
+
+  <rect x="540" y="645" width="360" height="100" rx="10" fill="white" stroke="#00A4EF" stroke-width="2"/>
+  <rect x="540" y="645" width="360" height="30" rx="10" fill="#00A4EF"/>
+  <rect x="540" y="665" width="360" height="10" fill="#00A4EF"/>
+  <text x="720" y="668" text-anchor="middle" fill="white" font-size="13" font-weight="bold">ConcurrentToolExecutor (default)</text>
+  <text x="560" y="698" fill="#555" font-size="11">Execute tools in parallel via asyncio</text>
+  <text x="560" y="715" fill="#555" font-size="11">asyncio.gather() for concurrent I/O</text>
+  <text x="560" y="732" fill="#555" font-size="11">Faster when model requests multiple tools</text>
+
+  <!-- Shared flow annotation -->
+  <rect x="160" y="755" width="740" height="30" rx="6" fill="#FAFAFA" stroke="#9E9E9E" stroke-width="1"/>
+  <text x="530" y="775" text-anchor="middle" fill="#555" font-size="11">Both: BeforeToolCallEvent → tool.stream() → AfterToolCallEvent (with retry support via hook.retry = True)</text>
+
+  <!-- Footer -->
+  <text x="530" y="795" text-anchor="middle" fill="#999" font-size="10">strands/tools/ — Tool registration, execution, and MCP integration</text>
+</svg>
