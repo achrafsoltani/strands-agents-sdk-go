@@ -84,7 +84,7 @@ The SDK is built from seven cooperating subsystems:
 | **Executors** | `executor.go` | `SequentialExecutor` and `ConcurrentExecutor` with hook integration and retry support |
 | **Session** | `conversation.go`, `session.go` | `ConversationManager` (sliding window, null) and `SessionManager` interface for persistence |
 
-See [`architecture/`](architecture/) for the Python SDK's design analysis, and [`docs/`](docs/) for the Go implementation documentation.
+See [`architecture/`](architecture/) for the Python SDK's design analysis, [`docs/`](docs/) for the Go implementation documentation, and [`tutorials/`](tutorials/) for hands-on guides with real-world scenarios.
 
 ### How the Event Loop Works
 
@@ -282,6 +282,14 @@ strands-agents-sdk-go/
 │   ├── providers/            # Provider docs (Anthropic, Bedrock)
 │   ├── api-reference.md      # Complete type and function reference
 │   └── examples.md           # Extended usage patterns
+├── tutorials/                # Hands-on tutorials with real-world scenarios
+│   ├── 01-devops-chatbot.md          # System health monitoring agent
+│   ├── 02-customer-support-agent.md  # Support agent with guardrails
+│   ├── 03-code-review-assistant.md   # Multi-turn code reviewer
+│   ├── 04-data-analysis-pipeline.md  # Data analysis with concurrent tools
+│   ├── 05-content-moderation.md      # Full hook lifecycle demo
+│   ├── 06-interactive-cli-chat.md    # Streaming terminal chatbot
+│   └── 07-custom-tool-implementation.md # Struct-based Tool interface
 ├── *_test.go                 # 10 test files, 104 tests total
 └── README.md
 ```
