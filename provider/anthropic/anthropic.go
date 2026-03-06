@@ -262,9 +262,14 @@ func (p *Provider) parseSSEStream(r io.Reader, handler strands.StreamHandler) (*
 func convertMessages(msgs []strands.Message) []apiMessage {
 	out := make([]apiMessage, 0, len(msgs))
 	for _, m := range msgs {
+		content := convertContentBlocks(m.Content)
+		// API rejects messages with empty content arrays.
+		if len(content) == 0 {
+			content = []apiContent{{Type: "text", Text: " "}}
+		}
 		out = append(out, apiMessage{
 			Role:    string(m.Role),
-			Content: convertContentBlocks(m.Content),
+			Content: content,
 		})
 	}
 	return out

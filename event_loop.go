@@ -23,6 +23,14 @@ func (a *Agent) runLoop(ctx context.Context, handler func(Event)) (*AgentResult,
 
 		a.accumulatedUsage.Add(output.Usage)
 
+		// Ensure the assistant message has content. Some models return
+		// end_turn with no content blocks after a tool-use cycle (the text
+		// was already in the tool-use response). Bedrock and other APIs
+		// reject messages with empty content arrays.
+		if len(output.Message.Content) == 0 {
+			output.Message.Content = []ContentBlock{TextBlock(" ")}
+		}
+
 		// Append the assistant's message to conversation history.
 		a.appendMessage(output.Message)
 
