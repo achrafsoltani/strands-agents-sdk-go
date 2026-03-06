@@ -229,6 +229,12 @@ func (p *Provider) parseEventStream(r io.Reader, handler strands.StreamHandler) 
 				continue
 			}
 			if ev.Delta.Text != nil {
+				// Bedrock may omit contentBlockStart for text blocks
+				// (observed after tool-result turns). Implicitly start one.
+				if currentBlockType == "" {
+					currentBlockType = "text"
+					currentText.Reset()
+				}
 				currentText.WriteString(*ev.Delta.Text)
 				if handler != nil {
 					handler(*ev.Delta.Text)
@@ -289,9 +295,15 @@ func (p *Provider) parseEventStream(r io.Reader, handler strands.StreamHandler) 
 func convertMessages(msgs []strands.Message) []bedrockMessage {
 	out := make([]bedrockMessage, 0, len(msgs))
 	for _, m := range msgs {
+		content := convertContentBlocks(m.Content)
+		// Bedrock rejects messages with empty content arrays.
+		if len(content) == 0 {
+			placeholder := " "
+			content = []bedrockContent{{Text: &placeholder}}
+		}
 		out = append(out, bedrockMessage{
 			Role:    string(m.Role),
-			Content: convertContentBlocks(m.Content),
+			Content: content,
 		})
 	}
 	return out
