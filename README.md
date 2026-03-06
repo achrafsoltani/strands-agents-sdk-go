@@ -6,7 +6,7 @@ Rather than encoding decision trees or state machines, you define **tools** and 
 
 [![Go](https://img.shields.io/badge/Go-1.23+-00ADD8?logo=go&logoColor=white)](https://go.dev)
 [![Zero Dependencies](https://img.shields.io/badge/dependencies-0-brightgreen)](#design-principles)
-[![Tests](https://img.shields.io/badge/tests-79%20passing-brightgreen)](#testing)
+[![Tests](https://img.shields.io/badge/tests-104%20passing-brightgreen)](#testing)
 [![Licence](https://img.shields.io/badge/licence-Apache%202.0-blue)](#licence)
 
 ---
@@ -84,7 +84,7 @@ The SDK is built from seven cooperating subsystems:
 | **Executors** | `executor.go` | `SequentialExecutor` and `ConcurrentExecutor` with hook integration and retry support |
 | **Session** | `conversation.go`, `session.go` | `ConversationManager` (sliding window, null) and `SessionManager` interface for persistence |
 
-See [`architecture/`](architecture/) for detailed design documentation with 8 SVG/PNG diagrams and a [complete PDF](architecture/pdf/strands-agents-architecture-complete.pdf).
+See [`architecture/`](architecture/) for the Python SDK's design analysis, and [`docs/`](docs/) for the Go implementation documentation.
 
 ### How the Event Loop Works
 
@@ -212,12 +212,17 @@ agent.Hooks.OnMessageAdded(func(e *strands.MessageAddedEvent) {
 
 ```go
 agent := strands.NewAgent(
-    // Model provider (required)
+    // Model provider — Anthropic direct
     strands.WithModel(anthropic.New(
         anthropic.WithAPIKey("sk-..."),
         anthropic.WithModel("claude-sonnet-4-20250514"),
         anthropic.WithMaxTokens(8192),
     )),
+    // Or AWS Bedrock (reads ~/.aws/credentials automatically)
+    // strands.WithModel(bedrock.New(
+    //     bedrock.WithRegion("eu-west-1"),
+    //     bedrock.WithModel("anthropic.claude-3-5-sonnet-20241022-v2:0"),
+    // )),
 
     // Tools
     strands.WithTools(tool1, tool2, tool3),
@@ -256,17 +261,28 @@ strands-agents-sdk-go/
 ├── session.go                # SessionManager interface (persistence stub)
 ├── errors.go                 # Sentinel errors
 ├── provider/
-│   └── anthropic/
-│       ├── anthropic.go      # Anthropic Messages API (HTTP + SSE streaming)
-│       └── anthropic_test.go # 14 tests with mock HTTP server
+│   ├── anthropic/
+│   │   ├── anthropic.go      # Anthropic Messages API (HTTP + SSE streaming)
+│   │   └── anthropic_test.go # 14 tests with mock HTTP server
+│   └── bedrock/
+│       ├── bedrock.go        # AWS Bedrock Converse API + type conversion
+│       ├── sigv4.go          # AWS Signature V4 signing (HMAC-SHA256)
+│       ├── eventstream.go    # AWS binary event stream decoder (CRC32 IEEE)
+│       └── bedrock_test.go   # 25 tests with binary event stream encoding
 ├── examples/
 │   └── basic/
 │       └── main.go           # Working example with word_count and calculator
-├── architecture/             # Design documentation
+├── architecture/             # Python SDK design analysis
 │   ├── *.md                  # 9 detailed architecture documents
 │   ├── diagrams/             # 8 SVG + 8 PNG architecture diagrams
 │   └── pdf/                  # Compiled PDFs including complete document
-├── *_test.go                 # 10 test files, 79 tests total
+├── docs/                     # Go implementation documentation
+│   ├── getting-started.md    # Installation, credentials, first agent
+│   ├── core-concepts.md      # Agent lifecycle, event loop, tools, hooks
+│   ├── providers/            # Provider docs (Anthropic, Bedrock)
+│   ├── api-reference.md      # Complete type and function reference
+│   └── examples.md           # Extended usage patterns
+├── *_test.go                 # 10 test files, 104 tests total
 └── README.md
 ```
 
@@ -281,9 +297,10 @@ go test ./...
 ```
 ok   strands-agents-sdk-go                   0.054s   # 65 tests
 ok   strands-agents-sdk-go/provider/anthropic 0.007s   # 14 tests
+ok   strands-agents-sdk-go/provider/bedrock   0.008s   # 25 tests
 ```
 
-**79 tests** covering:
+**104 tests** covering:
 
 | Test File | Tests | Coverage |
 |-----------|-------|----------|
@@ -297,6 +314,7 @@ ok   strands-agents-sdk-go/provider/anthropic 0.007s   # 14 tests
 | `agent_test.go` | 15 | Construction, Invoke, Stream, context cancellation |
 | `mock_test.go` | — | Test infrastructure (MockModel, response builders, tool fixtures) |
 | `anthropic_test.go` | 14 | HTTP mock server: non-streaming, SSE, errors, request format |
+| `bedrock_test.go` | 25 | SigV4, event stream decode, Converse, ConverseStream, CRC |
 
 All tests use `go test` with no external test dependencies.
 
@@ -310,7 +328,7 @@ All tests use `go test` with no external test dependencies.
 
 ## Roadmap
 
-- [ ] AWS Bedrock provider
+- [x] AWS Bedrock provider (SigV4 + binary event stream, zero deps)
 - [ ] OpenAI-compatible provider
 - [ ] Ollama provider (local models)
 - [ ] MCP (Model Context Protocol) client integration
